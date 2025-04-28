@@ -1,0 +1,41 @@
+FitBlast Fitness Tracking Application - Project Report
+
+1. Project Overview:
+FitBlast is a fitness tracking web application designed to help users set workout preferences, track their workouts, and engage with social features. The application provides personalized workout plans based on user preferences and tracks user progress over time.
+
+2. Technology Stack:
+- Backend: Node.js with Express framework
+- Database: MySQL for storing user data, preferences, workout history, and other related information
+- Frontend: HTML, CSS, JavaScript for user interface and interaction
+- Authentication: JWT-based user authentication with protected API routes
+- Additional Libraries: bcryptjs for password hashing, mysql2 for database connection pooling
+
+3. Key Features:
+- User Registration and Authentication
+- User Profile Management
+- Workout Preferences: Users can set workout type, intensity, duration, days per week, and fitness goals
+- Preferences are stored in a MySQL database with a dedicated preferences table linked to users
+- Workout Tracking and Statistics
+- Social Features: Posts, comments, likes (implemented in other parts of the project)
+- User History and Scrolling Data Tracking
+
+4. Database Schema:
+- Users table: Stores user personal information and credentials
+- Preferences table: Stores user workout preferences with columns for user_id, user_name, workoutType, intensity, duration, daysPerWeek, and goals
+- User History table: Logs user actions
+- Scrolling Data table: Tracks user scroll positions on pages
+
+5. Implementation Details:
+- The backend uses a MySQL connection pool for efficient database access
+- Preferences are saved and retrieved via RESTful API endpoints (/api/users/preferences)
+- The preferences table schema was updated from a key-value store to a structured table with explicit columns for better data integrity and querying
+- Controllers handle CRUD operations for user data and preferences with proper error handling
+- Frontend forms collect user preferences and submit them to the backend API for storage
+
+6. Next Steps:
+- Integrate frontend form submission with backend API to save preferences dynamically
+- Implement frontend display of saved preferences for user review and editing
+- Expand workout tracking features and social interactions
+- Add unit and integration tests for backend APIs
+
+This report summarizes the current state and architecture of the FitBlast fitness tracking application.

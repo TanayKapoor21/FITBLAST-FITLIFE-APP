@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Workout Preferences - FitPhysique</title>
+    <link rel="stylesheet" href="preferences.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+    <div class="form-area">
+        <div class="wrapper">
+            <h2>Set Your Workout Preferences</h2>
+            <form id="preferencesForm">
+                <div class="box">
+                    <select id="workoutType" name="workoutType" required>
+                        <option value="" disabled selected>Select a workout type</option>
+                        <option value="bodybuilding">Bodybuilding</option>
+                        <option value="cardio">Cardio</option>
+                        <option value="fitness">Fitness</option>
+                        <option value="crossfit">CrossFit</option>
+                    </select>
+                </div>
+                <div class="box">
+                    <select id="intensity" name="intensity" required>
+                        <option value="" disabled selected>Select intensity</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="box">
+                    <input type="number" id="duration" name="duration" min="10" max="180" placeholder="Workout Duration (minutes)" required />
+                </div>
+                <div class="box">
+                    <input type="number" id="daysPerWeek" name="daysPerWeek" min="1" max="7" placeholder="Days per Week" required />
+                </div>
+                <div class="box">
+                    <textarea id="goals" name="goals" rows="4" placeholder="Describe your fitness goals"></textarea>
+                </div>
+                <button type="submit">Save Preferences</button>
+            </form>
+        </div>
+    </div>
+    <script>
+      document.getElementById('preferencesForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        alert('Your preferences have been saved.');
+        window.location.href = 'index.html';
+      });
+    </script>
+</body>
+</html>
