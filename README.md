@@ -1,2 +1,2 @@
-# FitPhysique_01-04-24
-Learn how to create a stunning gym website from scratch using HTML, CSS, and JavaScript!
+# FITBLAST By Akash,Tanay,Harshit and Raman.
+A fitness tracker website for The Seminar Project.
