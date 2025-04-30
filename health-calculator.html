@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <title>Health Calculator - FitBlast</title>
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #007bff;
+            --input-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--secondary-color);
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                        url('assets/login.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav__container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav__logo img {
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .nav__links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav__links a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav__links a:hover {
+            color: var(--accent-color);
+        }
+
+        .calculator-container {
+            max-width: 800px;
+            margin: 120px auto 40px;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .calculator-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .calculator-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .calculator-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            background: var(--input-bg);
+            border: none;
+            border-radius: 8px;
+            color: var(--secondary-color);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-color);
+        }
+
+        .calculator-form {
+            display: none;
+        }
+
+        .calculator-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--secondary-color);
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .activity-level {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .activity-option {
+            padding: 1rem;
+            background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .activity-option:hover {
+            border-color: var(--accent-color);
+        }
+
+        .activity-option.selected {
+            background: var(--accent-color);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-color);
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .results {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .results h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .result-card {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .result-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .bmi-category {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .underweight { background: #ffd700; color: #000; }
+        .normal { background: #00C851; color: #fff; }
+        .overweight { background: #ff9800; color: #fff; }
+        .obese { background: #ff4444; color: #fff; }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                margin: 100px 1rem 40px;
+                padding: 1.5rem;
+            }
+
+            .nav__links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav__container">
+            <a href="index.html" class="nav__logo">
+                <img src="assets/logo4.jpg" alt="FitBlast Logo" />
+            </a>
+            <ul class="nav__links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="fitness-tracker.html">Fitness Tracker</a></li>
+                <li><a href="#" id="authLink">LOGOUT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h1>Health Calculator</h1>
+            <p>Calculate your TDEE and BMI for personalized fitness insights</p>
+        </div>
+
+        <div class="calculator-tabs">
+            <button class="tab-btn active" data-tab="tdee">TDEE Calculator</button>
+            <button class="tab-btn" data-tab="bmi">BMI Calculator</button>
+        </div>
+
+        <form id="tdeeForm" class="calculator-form active">
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" class="form-control" required min="15" max="100">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" class="form-control" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" class="form-control" required min="30" max="300">
+            </div>
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" class="form-control" required min="100" max="250">
+            </div>
+            <div class="form-group">
+                <label>Activity Level</label>
+                <div class="activity-level">
+                    <div class="activity-option" data-level="1.2">
+                        <h4>Sedentary</h4>
+                        <p>Little or no exercise</p>
+                    </div>
+                    <div class="activity-option" data-level="1.375">
+                        <h4>Lightly Active</h4>
+                        <p>Light exercise 1-3 days/week</p>
+                    </div>
+                    <div class="activity-option" data-level="1.55">
+                        <h4>Moderately Active</h4>
+                        <p>Moderate exercise 3-5 days/week</p>
+                    </div>
+                    <div class="activity-option" data-level="1.725">
+                        <h4>Very Active</h4>
+                        <p>Hard exercise 6-7 days/week</p>
+                    </div>
+                    <div class="activity-option" data-level="1.9">
+                        <h4>Extra Active</h4>
+                        <p>Very hard exercise & physical job</p>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn">Calculate TDEE</button>
+        </form>
+
+        <form id="bmiForm" class="calculator-form">
+            <div class="form-group">
+                <label for="bmiWeight">Weight (kg)</label>
+                <input type="number" id="bmiWeight" class="form-control" required min="30" max="300">
+            </div>
+            <div class="form-group">
+                <label for="bmiHeight">Height (cm)</label>
+                <input type="number" id="bmiHeight" class="form-control" required min="100" max="250">
+            </div>
+            <button type="submit" class="btn">Calculate BMI</button>
+        </form>
+
+        <div id="tdeeResults" class="results">
+            <h3>Your TDEE Results</h3>
+            <div class="results-grid">
+                <div class="result-card">
+                    <h4>Maintenance Calories</h4>
+                    <p id="maintenanceCalories">0</p>
+                </div>
+                <div class="result-card">
+                    <h4>Weight Loss Calories</h4>
+                    <p id="weightLossCalories">0</p>
+                </div>
+                <div class="result-card">
+                    <h4>Weight Gain Calories</h4>
+                    <p id="weightGainCalories">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="bmiResults" class="results">
+            <h3>Your BMI Results</h3>
+            <div class="results-grid">
+                <div class="result-card">
+                    <h4>BMI Score</h4>
+                    <p id="bmiScore">0</p>
+                </div>
+                <div class="result-card">
+                    <h4>Category</h4>
+                    <p id="bmiCategory" class="bmi-category">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Tab switching
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const forms = document.querySelectorAll('.calculator-form');
+        const results = document.querySelectorAll('.results');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                
+                // Update active tab button
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding form
+                forms.forEach(form => {
+                    form.classList.remove('active');
+                    if (form.id === `${tab}Form`) {
+                        form.classList.add('active');
+                    }
+                });
+                
+                // Hide all results
+                results.forEach(result => result.classList.remove('active'));
+            });
+        });
+
+        // Activity level selection
+        const activityOptions = document.querySelectorAll('.activity-option');
+        let selectedActivity = 1.2; // Default to sedentary
+
+        activityOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                activityOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedActivity = parseFloat(option.dataset.level);
+            });
+        });
+
+        // TDEE Calculation
+        document.getElementById('tdeeForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+
+            // BMR Calculation using Mifflin-St Jeor Equation
+            let bmr;
+            if (gender === 'male') {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            }
+
+            // TDEE Calculation
+            const tdee = bmr * selectedActivity;
+            
+            // Display results
+            document.getElementById('maintenanceCalories').textContent = Math.round(tdee);
+            document.getElementById('weightLossCalories').textContent = Math.round(tdee - 500);
+            document.getElementById('weightGainCalories').textContent = Math.round(tdee + 500);
+            
+            document.getElementById('tdeeResults').classList.add('active');
+        });
+
+        // BMI Calculation
+        document.getElementById('bmiForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const weight = parseFloat(document.getElementById('bmiWeight').value);
+            const height = parseFloat(document.getElementById('bmiHeight').value) / 100; // Convert to meters
+            
+            const bmi = weight / (height * height);
+            const bmiScore = document.getElementById('bmiScore');
+            const bmiCategory = document.getElementById('bmiCategory');
+            
+            bmiScore.textContent = bmi.toFixed(1);
+            
+            // Determine BMI category
+            let category, className;
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                className = 'underweight';
+            } else if (bmi < 25) {
+                category = 'Normal Weight';
+                className = 'normal';
+            } else if (bmi < 30) {
+                category = 'Overweight';
+                className = 'overweight';
+            } else {
+                category = 'Obese';
+                className = 'obese';
+            }
+            
+            bmiCategory.textContent = category;
+            bmiCategory.className = `bmi-category ${className}`;
+            
+            document.getElementById('bmiResults').classList.add('active');
+        });
+
+        // Handle logout
+        document.getElementById('authLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,345 @@
+.tracker__container {
+    padding-top: 8rem;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.tracker__section {
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background-color: #111111;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+.tracker__section h3 {
+    font-family: var(--header-font);
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Goals Section Styles */
+.goals__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (width > 768px) {
+    .goals__container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.goal__card {
+    padding: 1.5rem;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+.goal__card h4 {
+    font-family: var(--header-font);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+#current-goals {
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+#current-goals li {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #222222;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#current-goals li > span {
+    font-weight: 600;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.goal__progress {
+    padding: 1.5rem;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+.progress__bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Workout History Styles */
+.workout__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (width > 768px) {
+    .workout__container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.workout__form {
+    padding: 1.5rem;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+.form__group {
+    margin-bottom: 1.5rem;
+}
+
+.form__group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.form__group input,
+.form__group select,
+.form__group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    font-family: inherit;
+    background-color: #222222;
+    color: #ffffff;
+}
+
+.form__group input:focus,
+.form__group select:focus,
+.form__group textarea:focus {
+    outline: none;
+    border-color: #ffffff;
+}
+
+.workout__history {
+    padding: 1.5rem;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+.history__filters {
+    margin-bottom: 1rem;
+}
+
+.history__filters select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    font-family: inherit;
+    background-color: #222222;
+    color: #ffffff;
+}
+
+#workout-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.workout__item {
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    background-color: #222222;
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    color: #ffffff;
+}
+
+.workout__item .workout__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.workout__item .workout__type {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.workout__item .workout__date {
+    color: #cccccc;
+    font-size: 0.9rem;
+}
+
+.workout__item .workout__duration {
+    font-weight: 500;
+    color: #ffffff;
+}
+
+/* Statistics Section Styles */
+.stats__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.stat__card {
+    padding: 2rem;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid #333333;
+}
+
+.stat__card:hover {
+    transform: translateY(-5px);
+    border-color: #ffffff;
+}
+
+.stat__card i {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.stat__card h4 {
+    font-family: var(--header-font);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.stat__card p {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Progress Bar Styles */
+.progress__bar {
+    width: 100%;
+    height: 20px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #333333;
+}
+
+.progress__bar__fill {
+    height: 100%;
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+/* Button Styles */
+.btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #ffffff;
+}
+
+.btn:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.btn__secondary {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+.btn__secondary:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Responsive Adjustments */
+@media (width < 768px) {
+    .tracker__section {
+        padding: 1.5rem;
+    }
+
+    .stat__card {
+        padding: 1.5rem;
+    }
+}
+
+/* Goal Progress Styles */
+.goal__progress-input {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.5rem 0;
+}
+
+.goal__progress-input input {
+    width: 80px;
+    padding: 0.5rem;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.progress__history {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+.progress__history h5 {
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+.progress__entries {
+    list-style: none;
+    padding: 0;
+}
+
+.progress__entries li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #333333;
+    color: #ffffff;
+}
+
+.progress__entries li:last-child {
+    border-bottom: none;
+}
+
+.progress__entries li span {
+    color: #ffffff;
+}
+
+.btn__small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+.btn__small:hover {
+    background-color: #ffffff;
+    color: #000000;
+} 

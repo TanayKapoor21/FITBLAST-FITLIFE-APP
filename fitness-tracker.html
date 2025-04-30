@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="fitness-tracker.css" />
+    <title>Fitness Tracker - FitBlast</title>
+</head>
+<body>
+    <nav>
+        <div class="nav__bar">
+            <div class="nav__header">
+                <div class="nav__logo">
+                    <a href="index.html"><img src="assets/logo4.jpg" alt="logo" /></a>
+                </div>
+                <div class="nav__menu__btn" id="menu-btn">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+            <ul class="nav__links" id="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.html#about">ABOUT</a></li>
+                <li><a href="index.html#trainer">TRAINER</a></li>
+                <li><a href="index.html#client">CLIENT</a></li>
+                <li><a href="index.html#blog">BLOG</a></li>
+                <li><a href="index.html#contact">CONTACT US</a></li>
+                <li><a href="health-calculator.html">HEALTH CALCULATOR</a></li>
+                <li><a href="#" id="authLink">LOGOUT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section__container tracker__container">
+        <div class="user-welcome">
+            <h2>Welcome, <span id="username-display">User</span>!</h2>
+            <p>Track your fitness journey and achieve your goals</p>
+        </div>
+        
+        <!-- Goals Section -->
+        <div class="tracker__section">
+            <h3>My Fitness Goals</h3>
+            <div class="goals__container">
+                <div class="goal__card">
+                    <h4>Current Goals</h4>
+                    <ul id="current-goals">
+                        <!-- Goals will be added dynamically -->
+                    </ul>
+                    <button class="btn btn__primary" id="add-goal-btn">Add New Goal</button>
+                </div>
+                <div class="goal__progress">
+                    <h4>Goal Progress</h4>
+                    <div class="progress__bars">
+                        <!-- Progress bars will be added dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workout History Section -->
+        <div class="tracker__section">
+            <h3>Workout History</h3>
+            <div class="workout__container">
+                <div class="workout__form">
+                    <h4>Log New Workout</h4>
+                    <form id="workout-form">
+                        <div class="form__group">
+                            <label for="workout-date">Date</label>
+                            <input type="date" id="workout-date" required>
+                        </div>
+                        <div class="form__group">
+                            <label for="workout-type">Workout Type</label>
+                            <select id="workout-type" required>
+                                <option value="cardio">Cardio</option>
+                                <option value="strength">Strength Training</option>
+                                <option value="flexibility">Flexibility</option>
+                                <option value="hiit">HIIT</option>
+                            </select>
+                        </div>
+                        <div class="form__group">
+                            <label for="workout-duration">Duration (minutes)</label>
+                            <input type="number" id="workout-duration" min="1" required>
+                        </div>
+                        <div class="form__group">
+                            <label for="workout-notes">Notes</label>
+                            <textarea id="workout-notes" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn__primary">Log Workout</button>
+                    </form>
+                </div>
+                <div class="workout__history">
+                    <h4>Recent Workouts</h4>
+                    <div class="history__filters">
+                        <select id="history-filter">
+                            <option value="all">All Workouts</option>
+                            <option value="cardio">Cardio</option>
+                            <option value="strength">Strength Training</option>
+                            <option value="flexibility">Flexibility</option>
+                            <option value="hiit">HIIT</option>
+                        </select>
+                    </div>
+                    <div id="workout-list">
+                        <!-- Workout history will be added dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="tracker__section">
+            <h3>Fitness Statistics</h3>
+            <div class="stats__container">
+                <div class="stat__card">
+                    <i class="ri-calendar-check-line"></i>
+                    <h4>Workouts This Month</h4>
+                    <p id="monthly-workouts">0</p>
+                </div>
+                <div class="stat__card">
+                    <i class="ri-time-line"></i>
+                    <h4>Total Workout Time</h4>
+                    <p id="total-time">0 hours</p>
+                </div>
+                <div class="stat__card">
+                    <i class="ri-fire-line"></i>
+                    <h4>Calories Burned</h4>
+                    <p id="calories-burned">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diet Tracking Section -->
+        <div class="tracker__section">
+            <h3>Diet & Nutrition Tracking</h3>
+            <div class="diet__container">
+                <div class="diet__summary">
+                    <div class="diet__stats">
+                        <div class="stat__card">
+                            <i class="ri-restaurant-line"></i>
+                            <h4>Daily Calories</h4>
+                            <p id="daily-calories">0 / <span id="calorie-goal">2000</span></p>
+                        </div>
+                        <div class="stat__card">
+                            <i class="ri-scales-3-line"></i>
+                            <h4>Macros</h4>
+                            <div class="macros__display">
+                                <div class="macro">
+                                    <span>Protein</span>
+                                    <p id="protein-count">0g</p>
+                                </div>
+                                <div class="macro">
+                                    <span>Carbs</span>
+                                    <p id="carbs-count">0g</p>
+                                </div>
+                                <div class="macro">
+                                    <span>Fats</span>
+                                    <p id="fats-count">0g</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="diet__form">
+                        <h4>Add Food Item</h4>
+                        <form id="food-form">
+                            <div class="form__group">
+                                <label for="food-name">Food Name</label>
+                                <input type="text" id="food-name" required>
+                            </div>
+                            <div class="form__group">
+                                <label for="food-calories">Calories</label>
+                                <input type="number" id="food-calories" min="0" required>
+                            </div>
+                            <div class="form__group">
+                                <label for="food-protein">Protein (g)</label>
+                                <input type="number" id="food-protein" min="0" step="0.1" required>
+                            </div>
+                            <div class="form__group">
+                                <label for="food-carbs">Carbs (g)</label>
+                                <input type="number" id="food-carbs" min="0" step="0.1" required>
+                            </div>
+                            <div class="form__group">
+                                <label for="food-fats">Fats (g)</label>
+                                <input type="number" id="food-fats" min="0" step="0.1" required>
+                            </div>
+                            <div class="form__group">
+                                <label for="food-date">Date</label>
+                                <input type="date" id="food-date" required>
+                            </div>
+                            <button type="submit" class="btn btn__primary">Add Food</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="diet__history">
+                    <h4>Today's Food Log</h4>
+                    <div id="food-list">
+                        <!-- Food items will be added dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goal Modal -->
+    <div id="goal-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Add New Goal</h3>
+            <form id="goal-form">
+                <div class="form__group">
+                    <label for="goal-title">Goal Title</label>
+                    <input type="text" id="goal-title" required>
+                </div>
+                <div class="form__group">
+                    <label for="goal-target">Target (e.g., weight in kg, distance in km)</label>
+                    <input type="number" id="goal-target" required>
+                </div>
+                <div class="form__group">
+                    <label for="goal-deadline">Target Date</label>
+                    <input type="date" id="goal-deadline" required>
+                </div>
+                <button type="submit" class="btn btn__primary">Add Goal</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+            } else {
+                // Display username
+                const username = localStorage.getItem('username');
+                document.getElementById('username-display').textContent = username || 'User';
+                
+                // Load user's data
+                loadUserData();
+            }
+        });
+
+        // Handle logout
+        document.getElementById('authLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        });
+
+        // Load user's data from localStorage
+        function loadUserData() {
+            const username = localStorage.getItem('username');
+            const goals = JSON.parse(localStorage.getItem(`goals_${username}`) || '[]');
+            const workouts = JSON.parse(localStorage.getItem(`workouts_${username}`) || '[]');
+            const foods = JSON.parse(localStorage.getItem(`foods_${username}`) || '[]');
+            
+            // Load goals
+            const goalsList = document.getElementById('current-goals');
+            goalsList.innerHTML = '';
+            goals.forEach(goal => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="goal-item">
+                        <h5>${goal.title}</h5>
+                        <p>Target: ${goal.target}</p>
+                        <p>Deadline: ${new Date(goal.deadline).toLocaleDateString()}</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${goal.progress || 0}%"></div>
+                        </div>
+                    </div>
+                `;
+                goalsList.appendChild(li);
+            });
+
+            // Load workouts
+            const workoutList = document.getElementById('workout-list');
+            workoutList.innerHTML = '';
+            workouts.forEach(workout => {
+                const div = document.createElement('div');
+                div.className = 'workout-item';
+                div.innerHTML = `
+                    <div class="workout-header">
+                        <h5>${workout.type}</h5>
+                        <span>${new Date(workout.date).toLocaleDateString()}</span>
+                    </div>
+                    <p>Duration: ${workout.duration} minutes</p>
+                    ${workout.notes ? `<p>Notes: ${workout.notes}</p>` : ''}
+                `;
+                workoutList.appendChild(div);
+            });
+
+            // Load food items
+            loadFoodItems(foods);
+
+            // Update statistics
+            updateStatistics(workouts);
+        }
+
+        // Load food items
+        function loadFoodItems(foods) {
+            const foodList = document.getElementById('food-list');
+            foodList.innerHTML = '';
+            
+            const today = new Date().toISOString().split('T')[0];
+            const todaysFoods = foods.filter(food => food.date === today);
+            
+            let totalCalories = 0;
+            let totalProtein = 0;
+            let totalCarbs = 0;
+            let totalFats = 0;
+
+            todaysFoods.forEach(food => {
+                const div = document.createElement('div');
+                div.className = 'food-item';
+                div.innerHTML = `
+                    <div class="food-header">
+                        <h5>${food.name}</h5>
+                        <span>${food.calories} cal</span>
+                    </div>
+                    <div class="food-macros">
+                        <span>P: ${food.protein}g</span>
+                        <span>C: ${food.carbs}g</span>
+                        <span>F: ${food.fats}g</span>
+                    </div>
+                `;
+                foodList.appendChild(div);
+
+                totalCalories += parseInt(food.calories);
+                totalProtein += parseFloat(food.protein);
+                totalCarbs += parseFloat(food.carbs);
+                totalFats += parseFloat(food.fats);
+            });
+
+            // Update summary
+            document.getElementById('daily-calories').textContent = `${totalCalories} / `;
+            document.getElementById('protein-count').textContent = `${totalProtein.toFixed(1)}g`;
+            document.getElementById('carbs-count').textContent = `${totalCarbs.toFixed(1)}g`;
+            document.getElementById('fats-count').textContent = `${totalFats.toFixed(1)}g`;
+        }
+
+        // Update statistics
+        function updateStatistics(workouts) {
+            const now = new Date();
+            const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            
+            // Monthly workouts
+            const monthlyWorkouts = workouts.filter(w => new Date(w.date) >= firstDayOfMonth).length;
+            document.getElementById('monthly-workouts').textContent = monthlyWorkouts;
+
+            // Total workout time
+            const totalMinutes = workouts.reduce((sum, w) => sum + w.duration, 0);
+            const totalHours = Math.round(totalMinutes / 60);
+            document.getElementById('total-time').textContent = `${totalHours} hours`;
+
+            // Estimated calories burned (rough estimate: 5 calories per minute)
+            const caloriesBurned = Math.round(totalMinutes * 5);
+            document.getElementById('calories-burned').textContent = caloriesBurned;
+        }
+
+        // Goal Modal
+        const modal = document.getElementById('goal-modal');
+        const addGoalBtn = document.getElementById('add-goal-btn');
+        const closeBtn = document.querySelector('.close');
+
+        addGoalBtn.onclick = () => modal.style.display = 'block';
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => {
+            if (e.target == modal) modal.style.display = 'none';
+        };
+
+        // Handle goal form submission
+        document.getElementById('goal-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = localStorage.getItem('username');
+            const goals = JSON.parse(localStorage.getItem(`goals_${username}`) || '[]');
+            
+            const newGoal = {
+                title: document.getElementById('goal-title').value,
+                target: document.getElementById('goal-target').value,
+                deadline: document.getElementById('goal-deadline').value,
+                progress: 0
+            };
+            
+            goals.push(newGoal);
+            localStorage.setItem(`goals_${username}`, JSON.stringify(goals));
+            
+            modal.style.display = 'none';
+            loadUserData();
+        });
+
+        // Handle workout form submission
+        document.getElementById('workout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = localStorage.getItem('username');
+            const workouts = JSON.parse(localStorage.getItem(`workouts_${username}`) || '[]');
+            
+            const newWorkout = {
+                date: document.getElementById('workout-date').value,
+                type: document.getElementById('workout-type').value,
+                duration: parseInt(document.getElementById('workout-duration').value),
+                notes: document.getElementById('workout-notes').value
+            };
+            
+            workouts.push(newWorkout);
+            localStorage.setItem(`workouts_${username}`, JSON.stringify(workouts));
+            
+            e.target.reset();
+            loadUserData();
+        });
+
+        // Handle workout filter
+        document.getElementById('history-filter').addEventListener('change', (e) => {
+            const filter = e.target.value;
+            const username = localStorage.getItem('username');
+            const workouts = JSON.parse(localStorage.getItem(`workouts_${username}`) || '[]');
+            
+            const workoutList = document.getElementById('workout-list');
+            workoutList.innerHTML = '';
+            
+            const filteredWorkouts = filter === 'all' 
+                ? workouts 
+                : workouts.filter(w => w.type === filter);
+            
+            filteredWorkouts.forEach(workout => {
+                const div = document.createElement('div');
+                div.className = 'workout-item';
+                div.innerHTML = `
+                    <div class="workout-header">
+                        <h5>${workout.type}</h5>
+                        <span>${new Date(workout.date).toLocaleDateString()}</span>
+                    </div>
+                    <p>Duration: ${workout.duration} minutes</p>
+                    ${workout.notes ? `<p>Notes: ${workout.notes}</p>` : ''}
+                `;
+                workoutList.appendChild(div);
+            });
+        });
+
+        // Handle food form submission
+        document.getElementById('food-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = localStorage.getItem('username');
+            const foods = JSON.parse(localStorage.getItem(`foods_${username}`) || '[]');
+            
+            const newFood = {
+                name: document.getElementById('food-name').value,
+                calories: document.getElementById('food-calories').value,
+                protein: document.getElementById('food-protein').value,
+                carbs: document.getElementById('food-carbs').value,
+                fats: document.getElementById('food-fats').value,
+                date: document.getElementById('food-date').value
+            };
+            
+            foods.push(newFood);
+            localStorage.setItem(`foods_${username}`, JSON.stringify(foods));
+            
+            e.target.reset();
+            loadFoodItems(foods);
+        });
+    </script>
+
+    <style>
+        .user-welcome {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .user-welcome h2 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: 15% auto;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        .goal-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 0.5rem;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        .workout-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .workout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .workout-header h5 {
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        .diet__container {
+            display: grid;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .diet__summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .diet__stats {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .macros__display {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .macro {
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .macro span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .macro p {
+            margin: 0.5rem 0 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .food-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .food-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .food-header h5 {
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        .food-macros {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .diet__form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .diet__form h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .diet__summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html> 

@@ -32,7 +32,9 @@
           <li><a href="#client">CLIENT</a></li>
           <li><a href="#blog">BLOG</a></li>
           <li><a href="#contact">CONTACT US</a></li>
-          <li><a href="login.html" target="_blank">LOGIN</a></li>
+          <li><a href="fitness-tracker.html">FITNESS TRACKER</a></li>
+          <li><a href="health-calculator.html" id="healthCalcLink" style="display: none;">HEALTH CALCULATOR</a></li>
+          <li><a href="#" id="authLink">LOGIN</a></li>
         </ul>
       </div>
     </nav>
@@ -205,7 +207,7 @@
                 Member discounts on merchandise.
               </li>
             </ul>
-            <h3><sup>$</sup>30<span>/month</span></h3>
+            <h3><sup>₹</sup>300<span>/month</span></h3>
             <button class="btn btn__primary">BUY NOW</button>
           </div>
           <div class="membership__card">
@@ -236,7 +238,7 @@
                 Discounts on additional services.
               </li>
             </ul>
-            <h3><sup>$</sup>45<span>/month</span></h3>
+            <h3><sup>₹</sup>450<span>/month</span></h3>
             <button class="btn btn__primary">BUY NOW</button>
           </div>
           <div class="membership__card">
@@ -267,7 +269,7 @@
                 Priority access to guest passes and events.
               </li>
             </ul>
-            <h3><sup>$</sup>60<span>/month</span></h3>
+            <h3><sup>₹</sup>600<span>/month</span></h3>
             <button class="btn btn__primary">BUY NOW</button>
           </div>
         </div>
@@ -446,6 +448,36 @@
           }
         });
       });
+
+      // Check authentication state and update UI
+      function updateAuthUI() {
+        const authLink = document.getElementById('authLink');
+        const healthCalcLink = document.getElementById('healthCalcLink');
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        if (isLoggedIn) {
+          authLink.textContent = 'LOGOUT';
+          authLink.href = '#';
+          authLink.addEventListener('click', handleLogout);
+          healthCalcLink.style.display = 'block';
+        } else {
+          authLink.textContent = 'LOGIN';
+          authLink.href = 'login.html';
+          authLink.removeEventListener('click', handleLogout);
+          healthCalcLink.style.display = 'none';
+        }
+      }
+
+      // Handle logout
+      function handleLogout(e) {
+        e.preventDefault();
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('username');
+        updateAuthUI();
+      }
+
+      // Initialize auth UI
+      document.addEventListener('DOMContentLoaded', updateAuthUI);
     </script>
   <!-- AI Bot Chat Icon and Window -->
   <style>

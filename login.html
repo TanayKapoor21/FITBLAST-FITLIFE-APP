@@ -1,87 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login - FitPhysique</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      background:
-        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
-        url('assets/login.jpg') no-repeat center center fixed;
-      background-size: cover;
-      padding: 2rem;
-    }
-    .logo {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-    }
-    .logo img {
-      height: 50px;
-      width: auto;
-    }
-    .form-area {
-      max-width: 400px;
-      margin: 100px auto 0 auto;
-      background: rgba(0,0,0,0.5);
-      padding: 2rem;
-      border-radius: 8px;
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-    input[type="text"],
-    input[type="password"] {
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    button {
-      padding: 0.75rem;
-      background-color: #007bff;
-      border: none;
-      border-radius: 4px;
-      color: white;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <title>Login - FitBlast</title>
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --error-color: #ff4444;
+            --success-color: #00C851;
+            --input-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--secondary-color);
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                        url('assets/login.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+        }
+
+        .form-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .form-area {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .form-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--secondary-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .form-footer a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-error {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+        }
+
+        .alert-success {
+            background: rgba(0, 200, 81, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        @media (max-width: 480px) {
+            .form-area {
+                padding: 1.5rem;
+            }
+
+            .form-header h2 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="logo">
-    <img src="assets/logo4.jpg" alt="FitPhysique Logo" />
-  </div>
-  <div class="form-area">
-    <h2>Login to FitBlast</h2>
-    <form id="loginForm">
-      <input type="text" id="username" name="username" placeholder="Username" required />
-      <input type="password" id="password" name="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-    <div style="text-align:center; margin-top: 1rem;">
-      <a href="signup.html" style="color: #007bff; text-decoration: none;">New user? Sign up here</a>
+    <div class="logo">
+        <a href="index.html">
+            <img src="assets/logo4.jpg" alt="FitBlast Logo" />
+        </a>
     </div>
-  </div>
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      alert('Login successful.');
-      window.location.href = 'index.html';
-    });
-  </script>
+
+    <div class="form-container">
+        <div class="form-area">
+            <div class="form-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue your fitness journey</p>
+            </div>
+
+            <div id="alertError" class="alert alert-error">
+                Invalid username or password
+            </div>
+
+            <div id="alertSuccess" class="alert alert-success">
+                Login successful! Redirecting...
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <i class="ri-user-line"></i>
+                    <input type="text" 
+                           id="username" 
+                           class="form-control" 
+                           placeholder="Username" 
+                           required 
+                           autocomplete="username" />
+                    <div class="error-message" id="usernameError">
+                        Please enter a valid username
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <i class="ri-lock-line"></i>
+                    <input type="password" 
+                           id="password" 
+                           class="form-control" 
+                           placeholder="Password" 
+                           required 
+                           autocomplete="current-password" />
+                    <div class="error-message" id="passwordError">
+                        Password must be at least 6 characters
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+
+            <div class="form-footer">
+                <a href="signup.html">Don't have an account? Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const usernameError = document.getElementById('usernameError');
+        const passwordError = document.getElementById('passwordError');
+        const alertError = document.getElementById('alertError');
+        const alertSuccess = document.getElementById('alertSuccess');
+
+        // Form validation
+        function validateUsername(username) {
+            return username.length >= 3;
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        // Show error message
+        function showError(element, message) {
+            element.style.display = 'block';
+            element.textContent = message;
+        }
+
+        // Hide error message
+        function hideError(element) {
+            element.style.display = 'none';
+        }
+
+        // Show alert
+        function showAlert(element) {
+            element.style.display = 'block';
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 3000);
+        }
+
+        // Input event listeners for real-time validation
+        usernameInput.addEventListener('input', () => {
+            if (!validateUsername(usernameInput.value)) {
+                showError(usernameError, 'Username must be at least 3 characters');
+            } else {
+                hideError(usernameError);
+            }
+        });
+
+        passwordInput.addEventListener('input', () => {
+            if (!validatePassword(passwordInput.value)) {
+                showError(passwordError, 'Password must be at least 6 characters');
+            } else {
+                hideError(passwordError);
+            }
+        });
+
+        // Form submission
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Reset previous error states
+            hideError(usernameError);
+            hideError(passwordError);
+            hideError(alertError);
+            hideError(alertSuccess);
+
+            // Validate inputs
+            let isValid = true;
+
+            if (!validateUsername(usernameInput.value)) {
+                showError(usernameError, 'Username must be at least 3 characters');
+                isValid = false;
+            }
+
+            if (!validatePassword(passwordInput.value)) {
+                showError(passwordError, 'Password must be at least 6 characters');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Simulate login process
+                showAlert(alertSuccess);
+                
+                // Store login state in localStorage
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('username', usernameInput.value);
+
+                // Redirect after a short delay
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                showAlert(alertError);
+            }
+        });
+
+        // Check if user is already logged in
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
 </body>
 </html>
